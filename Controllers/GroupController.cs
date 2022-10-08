@@ -40,7 +40,7 @@ namespace contactgroupAPIefMySQL.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult<Cgroup>> UpdateCgroup(Cgroup request)
+        public async Task<ActionResult<Cgroup>> UpdateGroup(Cgroup request)
         {
             var dbCgroup = await _context.Cgroups.FindAsync(request.Idgroups);
             if (dbCgroup == null)
