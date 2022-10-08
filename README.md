@@ -17,3 +17,4 @@ I used technique to join data in controller end and just simple queries to datab
 ##List of command used to create this project. Just a reminder.
 -dotnet new gitignore
 -Scaffold-dBContext "server=127.0.0.1;user id=netuser;password=netpass;port=3306;database=contactgroup;" Pomelo.EntityFrameworkCore.MySql -OutputDir Models
+-dotnet add package BCrypt.Net-Next

@@ -34,9 +34,15 @@ namespace contactgroupAPIefMySQL.Controllers
         [HttpGet("username/{username}")]
         public async Task<IActionResult> GetContactsid(string username)
         {
-            var dbContact = await _context.Contacts.SingleAsync(x => x.Username == username);
-            if (dbContact == null)
+            var dbContact = new Contact();
+            try
+            {
+                dbContact = await _context.Contacts.SingleAsync(x => x.Username == username);
+            }
+            catch (System.Exception)
+            {
                 return BadRequest("Contact not found.");
+            }
             return Ok(dbContact);
         }
 
@@ -45,6 +51,7 @@ namespace contactgroupAPIefMySQL.Controllers
         {
             if (cont.Isadmin == null) { cont.Isadmin = 0; }   //Lets keep isadmin 0 for not and 1 for admin. no nulls
             Console.WriteLine("Isadmin="+cont.Isadmin);
+            cont.Password = MyPublicClass.EncryptPassword(cont.Password);   //Make pwd crypted : Change to SHA3 512 if time
             _context.Contacts.Add(cont);
             await _context.SaveChangesAsync();
 
@@ -60,7 +67,7 @@ namespace contactgroupAPIefMySQL.Controllers
 
             dbContact.Idcontacts = request.Idcontacts;  
             dbContact.Username = request.Username;
-            dbContact.Password = request.Password;              //TODO Crypt password at some point in time
+            dbContact.Password = MyPublicClass.EncryptPassword(request.Password);
             dbContact.Nickname = request.Nickname;
             dbContact.Email = request.Email;
             dbContact.Phone = request.Phone;

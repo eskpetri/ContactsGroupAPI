@@ -11,13 +11,13 @@ namespace contactgroupAPIefMySQL.Models
             Groupcontacts = new HashSet<Groupcontact>();
         }
 
-        public int Idcontacts { get; set; }
+        public int Idcontacts { get; set; } = 0;
         public string Username { get; set; } = null!;
-        public string? Password { get; set; }
-        public string? Nickname { get; set; }
-        public string? Email { get; set; }
-        public string? Phone { get; set; }
-        public sbyte? Isadmin { get; set; }
+        public string? Password { get; set; } = string.Empty;
+        public string? Nickname { get; set; } = string.Empty;
+        public string? Email { get; set; } = string.Empty;
+        public string? Phone { get; set; } = string.Empty;
+        public sbyte? Isadmin { get; set; } = 0;
 
         [JsonIgnore]        //Leave ICollection out of query 
         public virtual ICollection<Groupcontact> Groupcontacts { get; set; }

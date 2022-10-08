@@ -1,6 +1,6 @@
 global using contactgroupAPIefMySQL.Models;
 global using Microsoft.EntityFrameworkCore;
-using contactgroupAPIefMySQL;
+global using contactgroupAPIefMySQL;
 
 var builder = WebApplication.CreateBuilder(args);
 

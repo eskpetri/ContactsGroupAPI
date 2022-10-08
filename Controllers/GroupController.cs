@@ -45,6 +45,7 @@ namespace contactgroupAPIefMySQL.Controllers
             var dbCgroup = await _context.Cgroups.FindAsync(request.Idgroups);
             if (dbCgroup == null)
                 return BadRequest("Group not found.");
+            
             dbCgroup.Groupname = request.Groupname;
             dbCgroup.Description = request.Description;
             await _context.SaveChangesAsync();

@@ -46,6 +46,7 @@ namespace contactgroupAPIefMySQL.Controllers
             var dbGroupcontact = await _context.Groupcontacts.FindAsync(request.Idgroupcontacts);
             if (dbGroupcontact == null)
                 return BadRequest("Groupcontact not found.");
+            
             dbGroupcontact.Idcontacts = request.Idcontacts;
             dbGroupcontact.Idgroups = request.Idgroups;
             dbGroupcontact.Isadmin = request.Isadmin;
