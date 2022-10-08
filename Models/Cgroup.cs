@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace contactgroupAPIefMySQL.Models
 {
@@ -14,6 +15,7 @@ namespace contactgroupAPIefMySQL.Models
         public string Groupname { get; set; } = null!;
         public string? Description { get; set; }
 
+        [JsonIgnore]        //Leave ICollection out of query 
         public virtual ICollection<Groupcontact> Groupcontacts { get; set; }
     }
 }

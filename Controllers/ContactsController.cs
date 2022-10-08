@@ -30,6 +30,15 @@ namespace contactgroupAPIefMySQL.Controllers
                 return BadRequest("Contact not found.");
             return Ok(dbContact);
         }
+        
+        [HttpGet("username/{username}")]
+        public async Task<IActionResult> GetContactsid(string username)
+        {
+            var dbContact = await _context.Contacts.SingleAsync(x => x.Username == username);
+            if (dbContact == null)
+                return BadRequest("Contact not found.");
+            return Ok(dbContact);
+        }
 
         [HttpPost]
         public async Task<ActionResult<List<Contact>>> AddContact(Contact cont)
@@ -49,9 +58,9 @@ namespace contactgroupAPIefMySQL.Controllers
             if (dbContact == null)
                 return BadRequest("Contact not found.");
 
-            dbContact.Idcontacts = request.Idcontacts;
+            dbContact.Idcontacts = request.Idcontacts;  
             dbContact.Username = request.Username;
-            dbContact.Password = request.Password;              //Crypt password at some point in time
+            dbContact.Password = request.Password;              //TODO Crypt password at some point in time
             dbContact.Nickname = request.Nickname;
             dbContact.Email = request.Email;
             dbContact.Phone = request.Phone;

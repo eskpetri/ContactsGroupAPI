@@ -1,5 +1,6 @@
 global using contactgroupAPIefMySQL.Models;
 global using Microsoft.EntityFrameworkCore;
+using contactgroupAPIefMySQL;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +19,7 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    MyEnvironment.SetMySQLConnection();
     app.UseSwagger();
     app.UseSwaggerUI();
 }
