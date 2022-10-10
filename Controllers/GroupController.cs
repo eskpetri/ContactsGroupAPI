@@ -21,6 +21,34 @@ namespace contactgroupAPIefMySQL.Controllers
             return Ok(await _context.Cgroups.ToListAsync());
         }
 
+        [HttpGet("contact/{cid}")]
+
+        public async Task<ActionResult<List<GroupContactCid>>> GetGroupsContact(int cid)
+        {
+            List<Cgroup> GroupList = new List<Cgroup>();
+            List<GroupContactCid> CidList = new List<GroupContactCid>();
+            List<Groupcontact> gcList = new List<Groupcontact>();
+            GroupList = await _context.Cgroups.ToListAsync();
+            gcList = await _context.Groupcontacts.ToListAsync(); 
+            foreach (var Group in GroupList)
+            {
+                int member = 0;
+                int isadmin = 0;
+                foreach (var Groupcontact in gcList)
+                {
+                    if (Groupcontact.Idcontacts == cid && Group.Idgroups == Groupcontact.Idgroups) {
+                        member =1;
+                        if (Groupcontact.Isadmin == 1)
+                            isadmin = 1;
+                    }
+                }
+                CidList.Add(new GroupContactCid(Group, member, isadmin));
+            }
+            //await _context.Cgroups.ToListAsync();
+
+            return Ok(CidList);
+        }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<Cgroup>> Get(int id)
         {
