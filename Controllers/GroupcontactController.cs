@@ -68,7 +68,7 @@ namespace contactgroupAPIefMySQL.Controllers
 
             return Ok(dbGroupcontact);
         }
-        [HttpDelete("cg/")]
+        [HttpPost("cg/")]    //Axion ei tykkää deletestä ja JSONista samaan aikaan. Ihme säätöä
         public async Task<ActionResult<Groupcontact>> Deletecg(Groupcontact cont)
         {
             List<Groupcontact> lgc = await _context.Groupcontacts.ToListAsync();
@@ -80,7 +80,9 @@ namespace contactgroupAPIefMySQL.Controllers
                     dbGroupcontact = Groupc;
                 }
             }
-            if (dbGroupcontact == null)
+            Console.WriteLine("cgid="+dbGroupcontact.Idgroupcontacts);
+
+            if (dbGroupcontact.Idgroupcontacts == 0)
                 return BadRequest("Groupcontact not found.");
 
             _context.Groupcontacts.Remove(dbGroupcontact);
