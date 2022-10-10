@@ -68,5 +68,26 @@ namespace contactgroupAPIefMySQL.Controllers
 
             return Ok(dbGroupcontact);
         }
+        [HttpDelete("cg/")]
+        public async Task<ActionResult<Groupcontact>> Deletecg(Groupcontact cont)
+        {
+            List<Groupcontact> lgc = await _context.Groupcontacts.ToListAsync();
+            var dbGroupcontact = new Groupcontact();
+                    
+            foreach (var Groupc in lgc)
+            {
+                if (Groupc.Idcontacts == cont.Idcontacts && Groupc.Idgroups == cont.Idgroups) {
+                    dbGroupcontact = Groupc;
+                }
+            }
+            if (dbGroupcontact == null)
+                return BadRequest("Groupcontact not found.");
+
+            _context.Groupcontacts.Remove(dbGroupcontact);
+            await _context.SaveChangesAsync();
+
+            return Ok(dbGroupcontact);
+        }
+
     }
 }
