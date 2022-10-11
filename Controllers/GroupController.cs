@@ -93,6 +93,22 @@ namespace contactgroupAPIefMySQL.Controllers
 
             return Ok(dbCgroup);
         }
+        [HttpGet("group/{gid}")]
+        public async Task<ActionResult<List<Contact>>> GetGroupContacts(int gid)
+        {
+            List<Groupcontact> gcObjList = await _context.Groupcontacts.ToListAsync();
+            List<Contact> conObjList = new List<Contact>();
+            
+            foreach (var gc in gcObjList)
+            {
+                if (gc.Idgroups==gid) {
+                   conObjList.Add(await _context.Contacts.FindAsync(gc.Idcontacts));
+                }
+            }
+            if (conObjList.Count == 0)
+                return BadRequest("Groupcontacts not found.");
 
+            return Ok(conObjList.ToList());
+        }
     }
 }
