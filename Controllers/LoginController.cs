@@ -19,8 +19,8 @@ private readonly contactgroupContext _context;
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]Contact body)
         {
-            Console.WriteLine(body.Username);
-            Console.WriteLine(body.Password);
+            Console.WriteLine("body username = "+ body.Username);
+            Console.WriteLine("body password = "+body.Password);
             var dbContact = new Contact();
             try
             {
@@ -31,7 +31,11 @@ private readonly contactgroupContext _context;
                 Console.WriteLine("Login failed no username"+ex.Message);
                 return BadRequest("Login username not found.");
             }
-
+            Console.WriteLine("db username = "+ dbContact.Username);
+            Console.WriteLine("db password = "+dbContact.Password);
+            Console.WriteLine("VerifyPWD = "+MyPublicClass.VerifyPassword(body.Password, dbContact.Password));
+            Console.WriteLine("VerifyPWDTestT = "+MyPublicClass.VerifyPassword("pwd", dbContact.Password));
+            Console.WriteLine("VerifyPWDTestF = "+MyPublicClass.VerifyPassword("väärä", dbContact.Password));
             if (! MyPublicClass.VerifyPassword(body.Password, dbContact.Password))
             {
                 // authentication failed

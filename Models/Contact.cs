@@ -13,6 +13,7 @@ namespace contactgroupAPIefMySQL.Models
 
         public int Idcontacts { get; set; } = 0;
         public string Username { get; set; } = null!;
+       // [JsonIgnore]    //Ei päästetä salasanaa edes kryptattuna ulkopuolelle.//Tarttee saada takaisin päin muutoin hajoo Use Dto...
         public string? Password { get; set; } = string.Empty;
         public string? Nickname { get; set; } = string.Empty;
         public string? Email { get; set; } = string.Empty;
