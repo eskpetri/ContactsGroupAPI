@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using contactgroupAPIefMySQL.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace contactgroupAPIefMySQL.Controllers
 {
@@ -14,14 +15,14 @@ namespace contactgroupAPIefMySQL.Controllers
             _context = context;
         }
 
-        [HttpGet]
+        [HttpGet, Authorize(Roles = "User,Admin")]
 
         public async Task<ActionResult<List<Groupcontact>>> GetGroups()
         {
             return Ok(await _context.Groupcontacts.ToListAsync());
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}"), Authorize(Roles = "User,Admin")]
         public async Task<ActionResult<Groupcontact>> Get(int id)
         {
             var dbGroupcontacts = await _context.Groupcontacts.FindAsync(id);
@@ -30,7 +31,7 @@ namespace contactgroupAPIefMySQL.Controllers
             return Ok(dbGroupcontacts);
         }
 
-        [HttpPost]
+        [HttpPost, Authorize(Roles = "User,Admin")]
         public async Task<ActionResult<List<Groupcontact>>> AddGroup(Groupcontact cont)
         {
             if (cont.Isadmin == null) { cont.Isadmin = 0; }   //Lets keep isadmin 0 for not and 1 for admin. no nulls
@@ -40,7 +41,7 @@ namespace contactgroupAPIefMySQL.Controllers
             return Ok(cont.Idgroupcontacts);             //Check that return last inserted id
         }
 
-        [HttpPut]
+        [HttpPut, Authorize(Roles = "User,Admin")]
         public async Task<ActionResult<Groupcontact>> UpdateGroupcontact(Groupcontact request)
         {
             var dbGroupcontact = await _context.Groupcontacts.FindAsync(request.Idgroupcontacts);
@@ -56,7 +57,7 @@ namespace contactgroupAPIefMySQL.Controllers
             return Ok(dbGroupcontact);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}"), Authorize(Roles = "Admin")]
         public async Task<ActionResult<Groupcontact>> Delete(int id)
         {
             var dbGroupcontact = await _context.Groupcontacts.FindAsync(id);
@@ -68,7 +69,7 @@ namespace contactgroupAPIefMySQL.Controllers
 
             return Ok(dbGroupcontact);
         }
-        [HttpPost("cg/")]    //Axion ei tykkää deletestä ja JSONista samaan aikaan. Ihme säätöä
+        [HttpPost("cg/"), Authorize(Roles = "User,Admin")]    //Axion ei tykkää deletestä ja JSONista samaan aikaan. Ihme säätöä
         public async Task<ActionResult<Groupcontact>> Deletecg(Groupcontact cont)
         {
             List<Groupcontact> lgc = await _context.Groupcontacts.ToListAsync();

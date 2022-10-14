@@ -27,6 +27,12 @@ namespace contactgroupAPIefMySQL
         public static string EncryptPassword(String pwd) {
             return BCrypt.Net.BCrypt.HashPassword(pwd);
         }
+
+
+
+
+
+        /*
         public static string GenerateJwt(int id) {
             var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secureKey));
             var cred = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha512Signature);
@@ -49,7 +55,7 @@ namespace contactgroupAPIefMySQL
             }, out SecurityToken validatedToken);
 
             return (JwtSecurityToken) validatedToken;
-        }
+        }*/
     }
 }
 /*

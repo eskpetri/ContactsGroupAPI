@@ -15,14 +15,14 @@ namespace contactgroupAPIefMySQL.Controllers
             _context = context;
         }
 
-        [HttpGet]
+        [HttpGet, Authorize(Roles = "User,Admin")]
 
         public async Task<ActionResult<List<Contact>>> GetContacts()
         {
             return Ok(await _context.Contacts.ToListAsync());
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}"), Authorize(Roles = "User,Admin")]
         public async Task<ActionResult<Contact>> Get(int id)
         {
             var dbContact = await _context.Contacts.FindAsync(id);
@@ -31,7 +31,7 @@ namespace contactgroupAPIefMySQL.Controllers
             return Ok(dbContact);
         }
         
-        [HttpGet("username/{username}")]
+        [HttpGet("username/{username}"), Authorize(Roles = "User,Admin")]
         public async Task<IActionResult> GetContactsid(string username)
         {
             var dbContact = new Contact();
@@ -46,7 +46,7 @@ namespace contactgroupAPIefMySQL.Controllers
             return Ok(dbContact);
         }
 
-        [HttpPost]
+        [HttpPost, Authorize(Roles = "User,Admin")]
         public async Task<ActionResult<List<Contact>>> AddContact(Contact cont)
         {
             if (cont.Isadmin == null) { cont.Isadmin = 0; }   //Lets keep isadmin 0 for not and 1 for admin. no nulls
@@ -58,7 +58,7 @@ namespace contactgroupAPIefMySQL.Controllers
             return Ok(cont.Idcontacts);             //Check that return last inserted id
         }
 
-        [HttpPut]
+        [HttpPut, Authorize(Roles = "User,Admin")]
         public async Task<ActionResult<Contact>> UpdateContact(Contact request)
         {
             var dbContact = await _context.Contacts.FindAsync(request.Idcontacts);
@@ -80,7 +80,7 @@ namespace contactgroupAPIefMySQL.Controllers
             return Ok(dbContact);   //Needs to return updated 
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}"), Authorize(Roles = "Admin")]
         public async Task<ActionResult<Contact>> Delete(int id)
         {
             var dbContact = await _context.Contacts.FindAsync(id);
