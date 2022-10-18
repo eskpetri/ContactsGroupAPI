@@ -12,6 +12,7 @@ using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using System.Security.Principal;
 
 namespace contactgroupAPIIefMySQL.Controllers
 {
@@ -122,15 +123,48 @@ namespace contactgroupAPIIefMySQL.Controllers
             //Or invalid created token will have access in frontend
             if (refreshToken==null)
                 return BadRequest("No cookie");
-            return Ok(refreshToken);
+
+            if (ValidateToken(refreshToken))    
+                return Ok(refreshToken);
+            else
+                return BadRequest("Invalid Token");
         }
         //[HttpPost("logout"), Authorize(Roles = "User,Admin")]
         [HttpPost("logout")]  //Needs to be authenticated to logout
         public ActionResult<string> Logout()
         {
-            Response.Cookies.Delete("renewToken");
+            var token ="";
+            //Response.Cookies.Delete("renewToken");  //Does not work with Httponly cookies in frontend
+            var cookieOptions = new CookieOptions
+            {
+                HttpOnly = true,
+                SameSite = SameSiteMode.None,
+                Secure = true,
+                Expires = DateTime.UtcNow.AddDays(-1)
+            };
+            Response.Cookies.Append("renewToken", token, cookieOptions);
+            //Response.Cookies.Append
             return Ok("Cookie deleted");
         }
+
+    /*    public bool VerifyToken(string token)
+        {
+            var mySecurityKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(System.Environment.GetEnvironmentVariable("SecredKey")));
+            var tokenHandler = new JwtSecurityTokenHandler();
+            try
+            {
+                tokenHandler.ValidateToken(token, new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = mySecurityKey
+                }, out SecurityToken validatedToken);
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
+        }*/
         private string CreateToken(Contact user)       // Check out created token content at https://jwt.io/ <-- CopyPaste token string there
         {
             string Role = string.Empty;
@@ -158,8 +192,52 @@ namespace contactgroupAPIIefMySQL.Controllers
                 signingCredentials: creds);
 
             var jwt = new JwtSecurityTokenHandler().WriteToken(token);
-
+          // Console.WriteLine("IsValidated as true= "+ValidateToken(jwt));
+          // Console.WriteLine("IsValidated as false= "+ValidateToken(" "+jwt));
             return jwt;
+        }
+    private static bool ValidateToken(string authToken)
+    {
+        var tokenHandler = new JwtSecurityTokenHandler();
+        var validationParameters = GetValidationParameters();
+        try
+        {
+            SecurityToken validatedToken;
+            IPrincipal principal = tokenHandler.ValidateToken(authToken, validationParameters, out validatedToken);
+            }
+        catch (System.Exception ex)
+        {
+            Console.WriteLine("Validoinnissa virhe = "+ex.Message);
+            return false;
+        }
+
+        return true;
+    }
+
+    private static TokenValidationParameters GetValidationParameters()
+    {
+        return new TokenValidationParameters()
+        {
+            ValidateLifetime = false, // Because there is no expiration in the generated token
+            ValidateAudience = false, // Because there is no audiance in the generated token
+            ValidateIssuer = false,   // Because there is no issuer in the generated token
+            ValidIssuer = "Sample",
+            ValidAudience = "Sample",
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(System.Environment.GetEnvironmentVariable("SecredKey"))) // The same key as the one that generate the token
+        };
+    }
+
+        private void setTokenCookie(string token)
+        {
+            // append cookie with refresh token to the http response
+            var cookieOptions = new CookieOptions
+            {
+                HttpOnly = true,
+                SameSite = SameSiteMode.None,
+                Secure = true,
+                Expires = DateTime.UtcNow.AddDays(15)
+            };
+            Response.Cookies.Append("renewToken", token, cookieOptions);
         }
 /*
 public bool ValidateCurrentToken(string token)
@@ -189,19 +267,5 @@ public bool ValidateCurrentToken(string token)
 	}
 	return true;
 }*/
-
-        private void setTokenCookie(string token)
-        {
-            // append cookie with refresh token to the http response
-            var cookieOptions = new CookieOptions
-            {
-                HttpOnly = true,
-                SameSite = SameSiteMode.None,
-                Secure = true,
-                Expires = DateTime.UtcNow.AddDays(15)
-            };
-            Response.Cookies.Append("renewToken", token, cookieOptions);
-        }
-
     }
 }

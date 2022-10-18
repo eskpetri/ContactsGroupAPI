@@ -14,14 +14,14 @@ namespace contactgroupAPIefMySQL.Controllers
             _context = context;
         }
 
-        [HttpGet]
+        [HttpGet, Authorize(Roles = "User,Admin")]
 
         public async Task<ActionResult<List<Cgroup>>> GetGroups()
         {
             return Ok(await _context.Cgroups.ToListAsync());
         }
 
-        [HttpGet("contact/{cid}")]
+        [HttpGet("contact/{cid}"), Authorize(Roles = "User,Admin")]
 
         public async Task<ActionResult<List<GroupContactCid>>> GetGroupsContact(int cid)
         {
@@ -49,7 +49,7 @@ namespace contactgroupAPIefMySQL.Controllers
             return Ok(CidList);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}"), Authorize(Roles = "User,Admin")]
         public async Task<ActionResult<Cgroup>> Get(int id)
         {
             var dbCgroups = await _context.Cgroups.FindAsync(id);
@@ -58,7 +58,7 @@ namespace contactgroupAPIefMySQL.Controllers
             return Ok(dbCgroups);
         }
 
-        [HttpPost]
+        [HttpPost, Authorize(Roles = "User,Admin")]
         public async Task<ActionResult<List<Cgroup>>> AddGroup(Cgroup cont)
         {
             _context.Cgroups.Add(cont);
@@ -67,7 +67,7 @@ namespace contactgroupAPIefMySQL.Controllers
             return Ok(cont.Idgroups);             //Check that return last inserted id
         }
 
-        [HttpPut]
+        [HttpPut, Authorize(Roles = "User,Admin")]
         public async Task<ActionResult<Cgroup>> UpdateGroup(Cgroup request)
         {
             var dbCgroup = await _context.Cgroups.FindAsync(request.Idgroups);
@@ -81,7 +81,7 @@ namespace contactgroupAPIefMySQL.Controllers
             return Ok(dbCgroup);  
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}"), Authorize(Roles = "Admin")]
         public async Task<ActionResult<Cgroup>> Delete(int id)
         {
             var dbCgroup = await _context.Cgroups.FindAsync(id);
@@ -93,7 +93,7 @@ namespace contactgroupAPIefMySQL.Controllers
 
             return Ok(dbCgroup);
         }
-        [HttpGet("group/{gid}")]
+        [HttpGet("group/{gid}"), Authorize(Roles = "User,Admin")]
         public async Task<ActionResult<List<Contact>>> GetGroupContacts(int gid)
         {
             List<Groupcontact> gcObjList = await _context.Groupcontacts.ToListAsync();

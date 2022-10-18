@@ -57,7 +57,7 @@ namespace contactgroupAPIefMySQL.Controllers
             return Ok(dbGroupcontact);
         }
 
-        [HttpDelete("{id}"), Authorize(Roles = "Admin")]
+        [HttpDelete("{id}"), Authorize(Roles = "User,Admin")]
         public async Task<ActionResult<Groupcontact>> Delete(int id)
         {
             var dbGroupcontact = await _context.Groupcontacts.FindAsync(id);

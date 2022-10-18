@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace contactgroupAPIefMySQL.Models
 {
-    public class GroupContactCid
+    public class GroupContactCid  //Proper way to do it .NET 6 EF Core 🚀 Load Related Data with Include(), ThenInclude() & AutoInclude() https://www.youtube.com/watch?v=7HuOivcr6Mg&list=PLVkcJcg8_dUUNeR3A1NfejN00ES9VUsNh&index=8
     {
         public GroupContactCid()    //This object populated data from cgroup joined with Groupcontact
         {
