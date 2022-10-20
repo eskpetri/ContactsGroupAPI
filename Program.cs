@@ -30,7 +30,7 @@ builder.Services.AddSwaggerGen(options =>
 });
 //Jwt Authentication
 MyEnvironment.SetSecredKey();// This might be problem in production or in heroku/azure
-
+MyEnvironment.SetSecredBKey();// This might be problem in production or in heroku/azure
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options => {
         options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters

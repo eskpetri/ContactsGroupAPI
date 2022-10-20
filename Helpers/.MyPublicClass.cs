@@ -11,7 +11,7 @@ namespace contactgroupAPIefMySQL
 {
     public static class MyPublicClass
     {
-        private static string secureKey = "" +System.Environment.GetEnvironmentVariable("SecredKey");
+        private static string secureKey = "" +System.Environment.GetEnvironmentVariable("SecredBKey");
 
         public static Boolean VerifyPassword(String text, String hash) {
             try
