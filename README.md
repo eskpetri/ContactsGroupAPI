@@ -1,5 +1,5 @@
 # ContactGroupAPI
-a Simple application API for FrontEnd to use. Just testing technologies like Entityframework, Database first approuch, JWT, Httponly cookie. Joining and delivering data from controller. :star_struck: :star_struck: :star_struck:
+a Simple application API for FrontEnd to use. Just testing technologies like Entityframework, Database first approuch, JWT, Httponly cookie. Joining and delivering data from controller. :star_struck: :star_struck: :star_struck: I am not proud of this code but first time doing BackEnd
 
 ## ER model
 
