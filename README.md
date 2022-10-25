@@ -1,5 +1,5 @@
 # ContactGroupAPI
-a Simple application API for FrontEnd to use. Just testing technologies like Entityframework, Database first approuch, JWT, Httponly cookie. Joining and delivering data from controller. :star_struck: :star_struck: :star_struck: I am not proud of this code but first time doing BackEnd. Now I know how to do it better after all the challenges using google and trying to make it work. Maintenance people nightmere...
+a Simple application API for FrontEnd to use. Just testing technologies like Entityframework - Database first approuch, JWT, Httponly cookie. Joining and delivering data from controller. :star_struck: :star_struck: :star_struck: I am not proud of this code but first time doing BackEnd. Now I know how to do it better after all the challenges using google and trying to make it work. Maintenance peoples nightmere... in Main and OldWay branches have sql only approuch. Seeing few Entity Framework videos made me decide to test it out and hunger becomes larger while digesting. Bare in mind that coding needs to be done almost completely. 
 
 ## ER model
 
