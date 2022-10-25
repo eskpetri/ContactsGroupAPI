@@ -8,6 +8,9 @@ a Simple application API for FrontEnd to use. Just testing technologies like Ent
 ## Environmental variables
 For development (local machine) I created environment variable called "DATABASE_URL" :file_cabinet: for MySql connection string and "SecredKey" :key: for JWT encryption part and "SacredBKey" :old_key: for Bcrypt password encryption in Program.cs. 
 
+Key Vault would be a little bit more secure for cloud deployment. 
+https://azure.microsoft.com/en-us/products/key-vault/#product-overview
+
 ## JOIN Queries
 I used technique to join data in controller end and just simple queries to database. Works well in small and medium data masses. Would not do this in large scale user environment. Then I would use sql to reduse the data amount moving between DB and BackEnd and eventually to FrontEnd.
 
@@ -25,6 +28,14 @@ Swashbuckle.AspNetCore<br/>
 Swashbuckle.AspNetCore.Filters<br/><br/>
 
 Goto project directory with terminal and type dotnet run.<br/>
+
+## Increase security by implementing these steps (not implemented in this project)
+
+Follow good security practices. ie Don't hide your frontdoor key under the Wellcome carpet.
+https://blog.heroku.com/ten-ways-to-secure-your-apps
+
+Central Vault for Keys and Connection Strings. Quite big consept but comes handy in big scenarios involving multible DB, BackEnd and FrontEnd servers. Way to decrypt and encrypt ie passwords. Have to check how this is implemented. 
+https://www.vaultproject.io/
 
 ## List of command used to create this project. Just a reminder.
 -dotnet new gitignore <br/>
