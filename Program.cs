@@ -76,8 +76,6 @@ app.UseCors(options => options
 );
 
 app.Run();
-
-
 //JWT
 /*
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
