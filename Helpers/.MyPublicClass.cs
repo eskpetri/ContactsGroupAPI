@@ -27,11 +27,6 @@ namespace contactgroupAPIefMySQL
         public static string EncryptPassword(String pwd) {
             return BCrypt.Net.BCrypt.HashPassword(pwd);
         }
-
-
-
-
-
         /*
         public static string GenerateJwt(int id) {
             var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secureKey));
