@@ -37,6 +37,10 @@ https://blog.heroku.com/ten-ways-to-secure-your-apps
 Central Vault for Keys and Connection Strings. Quite big consept but comes handy in big scenarios involving multible DB, BackEnd and FrontEnd servers. Way to decrypt and encrypt ie passwords. Have to check how this is implemented. 
 https://www.vaultproject.io/
 
+Most of browser based attacks involved using tabs on unknown (Potentially hostile) sites and secure site on same browser. Easiest way to make these attacks unacceplible to system is to use different browsers to different tasks - behaving securely. ie Using Edge on production web based services and trusted sites, making Internet searches and general browsing using Firefox, and using Chrome on private browsing. 
+
+The idea is to educate users to behave securely. In a company you can also force employees to use tools in such way ie choosing Chrome to be production browser and allow it access only to trusted sites then advice employess to use Firefox for reading news, searching Internet and listening network radio. 
+
 ## List of command used to create this project. Just a reminder.
 -dotnet new gitignore <br/>
 -Scaffold-dBContext "server=127.0.0.1;user id=netuser;password=netpass;port=3306;database=contactgroup;" Pomelo.EntityFrameworkCore.MySql -OutputDir Models<br/>
