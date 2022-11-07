@@ -29,6 +29,9 @@ Swashbuckle.AspNetCore.Filters<br/><br/>
 
 Goto project directory with terminal and type dotnet run.<br/>
 
+## Postman testing while developing
+Exporteted file from Postman ContactGroups.postman_collection.json needs environmental variable to server({{baseurl}}) ie after deploying to heroku or azure you can switch variable from localhost to heroku url.
+
 ## Increase security by implementing these steps (not implemented in this project)
 
 Follow good security practices. ie Don't hide your frontdoor key under the Wellcome carpet.
